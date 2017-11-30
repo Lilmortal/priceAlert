@@ -6,8 +6,8 @@ import akka.actor.Props;
 public class User extends AbstractActor {
     private String name;
 
-    public static Props props(String name) {
-        return Props.create(User.class, name);
+    public static Props props() {
+        return Props.create(User.class);
     }
 
     @Override

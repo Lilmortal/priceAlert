@@ -18,7 +18,7 @@ public class UserManager extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder().matchEquals("createUserGroup", msg -> {
             System.out.println("test");
-            ActorRef userGroup = getContext().actorOf(UserGroup.props("a random name for this actor"));
+            ActorRef userGroup = getContext().actorOf(UserGroup.props());
             System.out.println(userGroup.path());
             userGroup.tell("normal", getSelf());
         }).build();

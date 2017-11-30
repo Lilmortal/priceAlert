@@ -5,14 +5,14 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 
 public class UserGroup extends AbstractActor {
-    public static Props props(String groupName) {
-        return Props.create(UserGroup.class, groupName);
+    public static Props props() {
+        return Props.create(UserGroup.class);
     }
 
     @Override
     public Receive createReceive() {
         return receiveBuilder().matchEquals("normal", r -> {
-            ActorRef user = getContext().actorOf(User.props("Jack"));
+            ActorRef user = getContext().actorOf(User.props());
             user.tell("view", getSelf());
         }).build();
     }
