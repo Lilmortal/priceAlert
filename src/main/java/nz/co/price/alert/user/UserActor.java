@@ -1,7 +1,10 @@
 package nz.co.price.alert.user;
 
 import akka.actor.AbstractLoggingActor;
+import akka.actor.ActorRef;
 import akka.actor.Props;
+import nz.co.price.alert.product.CreateProductMessage;
+import nz.co.price.alert.product.ProductActor;
 
 import static nz.co.price.alert.user.UserActor.Msg.GET_USERNAME;
 
@@ -25,8 +28,8 @@ public class UserActor extends AbstractLoggingActor {
     // Put this in company
 //    @Override
 //    public void preStart() throws Exception {
-//        ActorRef productActor = getContext().actorOf(Product.props(), "product");
-//        productActor.tell(Product.Msg.CREATE, getSelf());
+//        ActorRef productActor = getContext().actorOf(ProductActor.props(), "product");
+//        productActor.tell(ProductActor.Msg.CREATE, getSelf());
 //    }
 
     @Override
@@ -37,6 +40,9 @@ public class UserActor extends AbstractLoggingActor {
             getSender().tell(new UsernameRecorded(this.username), getSelf());
         }).matchEquals(GET_USERNAME, r -> {
             log().info("The username is " + username);
+        }).match(CreateProductMessage.class, r -> {
+            ActorRef productActor = getContext().actorOf(ProductActor.props(), r.getProduct());
+            productActor.tell(new CreateProductMessage(r.getProduct()), getSelf());
         }).build();
     }
 }

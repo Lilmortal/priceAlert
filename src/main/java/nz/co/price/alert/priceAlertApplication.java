@@ -2,8 +2,10 @@ package nz.co.price.alert;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import nz.co.price.alert.user.CreateUserMessage;
 import nz.co.price.alert.user.UpdateUsernameMessage;
 import nz.co.price.alert.user.UserActor;
+import nz.co.price.alert.user.UserManagerActor;
 
 import java.util.Scanner;
 
@@ -18,9 +20,9 @@ public class priceAlertApplication {
                 System.out.println("Username is empty.");
                 continue;
             }
-            ActorRef userActor = system.actorOf(UserActor.props(), username);
-            userActor.tell(new UpdateUsernameMessage(username), userActor);
-            userActor.tell(UserActor.Msg.GET_USERNAME, userActor);
+            ActorRef userManagerActor = system.actorOf(UserManagerActor.props(), username);
+            userManagerActor.tell(new CreateUserMessage(username), userManagerActor);
+            userManagerActor.tell(UserManagerActor.Msg.LIST_ALL_USERS, userManagerActor);
         }
     }
 //            System.setProperty("http.proxyHost", "icecrown.isis.airnz.co.nz");
