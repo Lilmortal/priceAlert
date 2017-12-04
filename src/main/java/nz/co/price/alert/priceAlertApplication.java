@@ -2,28 +2,31 @@ package nz.co.price.alert;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
-import nz.co.price.alert.user.UserManager;
+import nz.co.price.alert.user.UpdateUsernameMessage;
+import nz.co.price.alert.user.UserActor;
 
-import java.io.IOException;
+import java.util.Scanner;
 
 public class priceAlertApplication {
     public static void main(String[] args) {
         ActorSystem system = ActorSystem.create("priceAlert");
-        try {
-            ActorRef userManagerActor = system.actorOf(UserManager.props());
-            userManagerActor.tell("createUserGroup", userManagerActor);
-
-            System.in.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            system.terminate();
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Type in your username.");
+            String username = scanner.nextLine();
+            if (username.isEmpty()) {
+                System.out.println("Username is empty.");
+                continue;
+            }
+            ActorRef userActor = system.actorOf(UserActor.props(), username);
+            userActor.tell(new UpdateUsernameMessage(username), userActor);
+            userActor.tell(UserActor.Msg.GET_USERNAME, userActor);
         }
-
-        System.setProperty("http.proxyHost", "icecrown.isis.airnz.co.nz");
-        System.setProperty("http.proxyPort", "3128");
-        System.setProperty("https.proxyHost", "icecrown.isis.airnz.co.nz");
-        System.setProperty("https.proxyPort", "3128");
+    }
+//            System.setProperty("http.proxyHost", "icecrown.isis.airnz.co.nz");
+//            System.setProperty("http.proxyPort", "3128");
+//            System.setProperty("https.proxyHost", "icecrown.isis.airnz.co.nz");
+//            System.setProperty("https.proxyPort", "3128");
 //        while(true) {
 //            Scanner scanner = new Scanner(System.in);
 //            System.out.println("What do you want to search...");
@@ -50,5 +53,4 @@ public class priceAlertApplication {
 //                        headline.attr("title"), headline.absUrl("href")));
 //            }
 //        }
-    }
 }
