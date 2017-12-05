@@ -26,11 +26,12 @@ public class UserManagerActor extends AbstractLoggingActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder().match(CreateUserMessage.class, r -> {
-            ActorRef userActor = getContext().actorOf(UserActor.props(), r.getUsername());
-            log().info(id.toString());
-            users.put(id.getAndIncrement(), userActor);
+            if (!users.containsValue(r.getUsername())) {
+                ActorRef userActor = getContext().actorOf(UserActor.props(), r.getUsername());
+                users.putIfAbsent(id.getAndIncrement(), userActor);
+            }
         }).matchEquals(Msg.LIST_ALL_USERS, r -> {
-            log().info(users.values().toString(), users.size());
+            log().info(users.size() + "");
         }).build();
     }
 }

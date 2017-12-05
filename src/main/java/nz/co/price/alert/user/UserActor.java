@@ -5,6 +5,13 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import nz.co.price.alert.product.CreateProductMessage;
 import nz.co.price.alert.product.ProductActor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 import static nz.co.price.alert.user.UserActor.Msg.GET_USERNAME;
 
@@ -25,12 +32,37 @@ public class UserActor extends AbstractLoggingActor {
         }
     }
 
-    // Put this in company
-//    @Override
-//    public void preStart() throws Exception {
-//        ActorRef productActor = getContext().actorOf(ProductActor.props(), "product");
-//        productActor.tell(ProductActor.Msg.CREATE, getSelf());
-//    }
+    @Override
+    public void preStart() throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What do you want to search...");
+        while (true) {
+            String product = scanner.nextLine();
+
+            Document doc = null;
+            try {
+                doc = Jsoup.connect(String.format("https://www.pbtech.co.nz/search?sf=%s", product)).get();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            log().info(doc.title());
+            Elements newsHeadlines = doc.select("#scrollPanel .item_description a");
+            for (Element headline : newsHeadlines) {
+
+                log().info(String.format("%s\n\t%s",
+                        headline.attr("title"), headline.absUrl("href")));
+            }
+
+            Elements specializedHeadlines = doc.select("#recently_browsed .item_short_name a");
+            for (Element headline : specializedHeadlines) {
+
+                log().info(String.format("%s\n\t%s",
+                        headline.attr("title"), headline.absUrl("href")));
+            }
+            ActorRef productActor = getContext().actorOf(ProductActor.props(), "product");
+            productActor.tell(ProductActor.Msg.CREATE, getSelf());
+        }
+    }
 
     @Override
     public Receive createReceive() {

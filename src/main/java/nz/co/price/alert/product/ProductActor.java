@@ -24,7 +24,6 @@ public class ProductActor extends AbstractLoggingActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder().matchEquals(Msg.CREATE, r -> {
-            System.out.println("Test");
         }).build();
     }
 }
