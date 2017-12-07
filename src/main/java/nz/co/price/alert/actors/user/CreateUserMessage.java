@@ -1,9 +1,9 @@
-package nz.co.price.alert.user;
+package nz.co.price.alert.actors.user;
 
-public final class UpdateUsernameMessage {
+public class CreateUserMessage {
     private String username;
 
-    public UpdateUsernameMessage(String username) {
+    public CreateUserMessage(String username) {
         this.username = username;
     }
 

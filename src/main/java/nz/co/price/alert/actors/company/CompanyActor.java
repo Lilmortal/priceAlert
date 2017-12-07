@@ -1,4 +1,4 @@
-package nz.co.price.alert.company;
+package nz.co.price.alert.actors.company;
 
 import akka.actor.AbstractLoggingActor;
 import akka.actor.Props;

@@ -1,10 +1,10 @@
-package nz.co.price.alert.user;
+package nz.co.price.alert.actors.user;
 
 import akka.actor.AbstractLoggingActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
-import nz.co.price.alert.product.CreateProductMessage;
-import nz.co.price.alert.product.ProductActor;
+import nz.co.price.alert.actors.product.CreateProductMessage;
+import nz.co.price.alert.actors.product.ProductActor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,7 +13,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static nz.co.price.alert.user.UserActor.Msg.GET_USERNAME;
+import static nz.co.price.alert.actors.user.UserActor.Msg.GET_USERNAME;
 
 public class UserActor extends AbstractLoggingActor {
     private String username;

@@ -1,11 +1,9 @@
-package nz.co.price.alert.user;
+package nz.co.price.alert.actors.user;
 
-import akka.actor.AbstractActor;
 import akka.actor.AbstractLoggingActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;

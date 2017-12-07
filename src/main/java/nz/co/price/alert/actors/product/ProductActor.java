@@ -1,10 +1,10 @@
-package nz.co.price.alert.product;
+package nz.co.price.alert.actors.product;
 
 import akka.actor.AbstractLoggingActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
-import nz.co.price.alert.company.CompanyActor;
-import nz.co.price.alert.company.CreateCompanyMessage;
+import nz.co.price.alert.actors.company.CompanyActor;
+import nz.co.price.alert.actors.company.CreateCompanyMessage;
 
 public class ProductActor extends AbstractLoggingActor {
     public enum Msg {

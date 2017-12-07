@@ -1,4 +1,4 @@
-package nz.co.price.alert.product;
+package nz.co.price.alert.actors.product;
 
 public class CreateProductMessage {
     private String product;
