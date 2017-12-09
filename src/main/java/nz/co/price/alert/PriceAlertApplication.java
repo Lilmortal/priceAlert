@@ -1,17 +1,13 @@
 package nz.co.price.alert;
 
-import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.http.javadsl.ServerBinding;
-import nz.co.price.alert.actors.user.CreateUserMessage;
-import nz.co.price.alert.actors.user.UserManagerActor;
 import nz.co.price.alert.routes.RoutesServer;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.Scanner;
 import java.util.concurrent.CompletionStage;
 
 public class PriceAlertApplication {

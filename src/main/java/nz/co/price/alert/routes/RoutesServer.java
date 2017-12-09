@@ -29,7 +29,7 @@ public class RoutesServer extends AllDirectives implements Server {
 
         Routes routes = new Routes();
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = routes.createRoute().flow(system, materializer);
-        final CompletionStage<ServerBinding> binding = http.bindAndHandle(routeFlow, ConnectHttp.toHost("localhost", 8080), materializer);
+        final CompletionStage<ServerBinding> binding = http.bindAndHandle(routeFlow, ConnectHttp.toHost(hostName, portNumber), materializer);
 
         // TODO: Maybe can use AspectJ for this
         System.out.println("Running server in " + hostName + ":" + portNumber);

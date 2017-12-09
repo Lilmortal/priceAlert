@@ -23,7 +23,7 @@ public class UserManagerActor extends AbstractLoggingActor {
 
     @Override
     public Receive createReceive() {
-        return receiveBuilder().match(CreateUserMessage.class, r -> {
+        return receiveBuilder().match(UserActor.CreateUserMessage.class, r -> {
             if (!users.containsValue(r.getUsername())) {
                 ActorRef userActor = getContext().actorOf(UserActor.props(), r.getUsername());
                 users.putIfAbsent(id.getAndIncrement(), userActor);

@@ -17,6 +17,8 @@ import static nz.co.price.alert.actors.user.UserActor.Msg.GET_USERNAME;
 
 public class UserActor extends AbstractLoggingActor {
     private String username;
+    private String password;
+    private String phoneNumber;
 
     public enum Msg {
         GET_USERNAME
@@ -26,9 +28,35 @@ public class UserActor extends AbstractLoggingActor {
         return Props.create(UserActor.class);
     }
 
-    public final class UsernameRecorded {
+    public static class UsernameRecorded {
+        private String username;
+
         public UsernameRecorded(String username) {
-            UserActor.this.username = username;
+            this.username = username;
+        }
+    }
+
+    public static class UpdateUsernameMessage {
+        private String username;
+
+        public UpdateUsernameMessage(String username) {
+            this.username = username;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+    }
+
+    public static class CreateUserMessage {
+        private String username;
+
+        public CreateUserMessage(String username) {
+            this.username = username;
+        }
+
+        public String getUsername() {
+            return username;
         }
     }
 

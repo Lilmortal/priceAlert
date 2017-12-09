@@ -14,6 +14,7 @@ ext {
     akkaVersion = '2.5.6'
     akkaHttpVersion = '10.0.11'
     akkaStreamVersion = '2.5.7'
+    aspectJVersion = '1.8.13'
 
     jUnitVersion = '4.12'
 }
@@ -25,7 +26,10 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
     implementation "com.typesafe.akka:akka-actor_2.12:${akkaVersion}"
     implementation "com.typesafe.akka:akka-http_2.12:${akkaHttpVersion}"
+    implementation "com.typesafe.akka:akka-http-jackson_2.12:${akkaHttpVersion}"
     implementation "com.typesafe.akka:akka-stream_2.12:${akkaStreamVersion}"
+    implementation "org.aspectj:aspectjrt:${aspectJVersion}"
+    implementation "org.aspectj:aspectjweaver:${aspectJVersion}"
 
     testImplementation "com.typesafe.akka:akka-testkit_2.12:${akkaVersion}"
     testImplementation "junit:junit:${jUnitVersion}"
