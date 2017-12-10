@@ -11,13 +11,12 @@ import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import nz.co.price.alert.routes.interfaces.Param;
 import nz.co.price.alert.routes.interfaces.Routes;
-import nz.co.price.alert.routes.interfaces.Type;
 import org.reflections.Reflections;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -106,10 +105,10 @@ public class RoutesServer extends AllDirectives implements Server {
 
         for (Method[] filteredMethod : filteredMethods) {
             for (Method method : filteredMethod) {
-                Parameter[] parameters = method.getParameters();
-                for (Parameter parameter : parameters) {
-                    System.out.println(method.getName() + " " + parameter.getName() + " " + parameter.getType());
-                }
+//                Parameter[] parameters = method.getParameters();
+//                for (Parameter parameter : parameters) {
+//                    System.out.println(method.getName() + " " + parameter.getName() + " " + parameter.getType());
+//                }
 //                Route newRoute = route();
 //                if (method.isAnnotationPresent(Get.class)) {
 //                    route = route.orElse(get(() ->
@@ -118,10 +117,16 @@ public class RoutesServer extends AllDirectives implements Server {
 //                        )
 //                    ))
 //                }
+
+                String parameter = method.getAnnotation(nz.co.price.alert.routes.interfaces.Route.class).value();
                 for (Annotation[] annotations : method.getParameterAnnotations()) {
                     for (Annotation annotation : annotations) {
-                        if (annotation.annotationType().equals(Type.class)) {
-//                            System.out.println(method.getAnnotation(nz.co.price.alert.routes.interfaces.Route.class).parameter());
+                        if (annotation.annotationType().equals(Param.class)) {
+                            Param param = (Param) annotation;
+                            int parameterRoute = parameter(param.value(), param -> )
+                            System.out.println(method.getAnnotation(nz.co.price.alert.routes.interfaces.Route.class).value() + " " + param.value());
+
+                            // Search for {param}, and
                         }
                     }
                 }

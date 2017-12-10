@@ -49,7 +49,7 @@ public class PriceAlertApplication {
 
 //        ActorRef userManagerActor = system.actorOf(UserManagerActor.props(), "userManager");
 //        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Type in your username.");
+//        System.out.println("Param in your username.");
 //        while (scanner.hasNextLine()) {
 //            String username = scanner.nextLine();
 //            if (username.isEmpty()) {
