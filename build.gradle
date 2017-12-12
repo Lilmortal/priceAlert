@@ -40,7 +40,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'nz.co.price.alert.priceAlertApplication'
+        attributes 'Main-Class': 'nz.co.price.alert.PriceAlertApplication'
     }
 
 }
