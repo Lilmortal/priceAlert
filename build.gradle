@@ -4,6 +4,10 @@ plugins {
     id "com.github.johnrengelman.shadow" version "2.0.1"
 }
 
+group 'priceAlert'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
 repositories {
     jcenter()
 }
@@ -42,13 +46,16 @@ jar {
     manifest {
         attributes 'Main-Class': 'nz.co.price.alert.PriceAlertApplication'
     }
+}
 
+shadowJar {
+    transform(com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer) {
+        resource = 'reference.conf'
+    }
 }
 
 task run(type: JavaExec) {
     dependsOn 'shadowJar'
     main '-jar'
-    args ['build/libs/priceAlert-all.jar']
+    args ['build/libs/priceAlert-1.0-SNAPSHOT-all.jar']
 }
-
-run.dependsOn shadowJar
