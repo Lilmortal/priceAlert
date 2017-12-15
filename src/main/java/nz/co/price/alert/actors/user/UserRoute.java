@@ -7,7 +7,6 @@ import akka.http.javadsl.server.Route;
 import nz.co.price.alert.routes.RouteDirective;
 import nz.co.price.alert.routes.interfaces.*;
 
-// TODO: Make this singleton
 public class UserRoute extends AllDirectives implements RouteDirective {
     @Override
     public Route getRoute() {
@@ -17,17 +16,16 @@ public class UserRoute extends AllDirectives implements RouteDirective {
                                 complete(username + " is cool." + " Id: " + userId)
                         )
                 )
+        ),
+        post(() ->
+                path("oauth", () ->
+                        path("register", () ->
+                                entity(Jackson.unmarshaller(User.class), user ->
+                                        onSuccess(() ->
+                                                complete("User is saved."))
+                                )
+                        )
+                )
         );
-//        ),
-//        post(() ->
-//                path("oauth", () ->
-//                        path("register", () ->
-//                                entity(Jackson.unmarshaller(User.class), user ->
-//                                        onSuccess(() ->
-//                                                complete("User is saved."))
-//                                )
-//                        )
-//                )
-//        );
     }
 }
